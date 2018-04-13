@@ -1,0 +1,15 @@
+{
+  "name": "react-native-native-loading",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fenglu09/react-native-native-loading.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
