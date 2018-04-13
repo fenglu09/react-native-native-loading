@@ -61,7 +61,7 @@ RCT_EXPORT_METHOD(hide){
 -(void)showLoadingWithoutStr {
     dispatch_async(dispatch_get_main_queue(), ^{
         // 背景层
-        self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, AutoLayoutFunctionBtnWidth(120), AutoLayoutFunctionBtnHeight(120))];
+        self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, AutoLayoutFunctionBtnWidth(100), AutoLayoutFunctionBtnHeight(100))];
         self.bgView.backgroundColor = [UIColor blackColor];
         self.bgView.center = self.vc.view.center;
         self.bgView.alpha = 0.7;
@@ -73,8 +73,8 @@ RCT_EXPORT_METHOD(hide){
         CGFloat activityIndicatorViewY = self.bgView.frame.origin.y + (self.bgView.frame.size.height - 10) / 2;
         
         self.activityIndicatorView=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(activityIndicatorViewX, activityIndicatorViewY, 10, 10)];
-//        CGAffineTransform transform = CGAffineTransformMakeScale(1.5f, 1.5f);
-//        self.activityIndicatorView.transform = transform;
+        CGAffineTransform transform = CGAffineTransformMakeScale(1.35f, 1.35f);
+        self.activityIndicatorView.transform = transform;
         [self.activityIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
         [self.activityIndicatorView setBackgroundColor:[UIColor clearColor]];
         [self.vc.view addSubview:self.activityIndicatorView];
@@ -98,8 +98,8 @@ RCT_EXPORT_METHOD(hide){
         CGFloat activityIndicatorViewY = self.bgView.frame.origin.y + AutoLayoutFunctionBtnSizeY(40);
         
         self.activityIndicatorView=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(activityIndicatorViewX, activityIndicatorViewY,10,10)];
-//        CGAffineTransform transform = CGAffineTransformMakeScale(1.5f, 1.5f);
-//        self.activityIndicatorView.transform = transform;
+        CGAffineTransform transform = CGAffineTransformMakeScale(1.35f, 1.35f);
+        self.activityIndicatorView.transform = transform;
         [self.activityIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
         [self.activityIndicatorView setBackgroundColor:[UIColor clearColor]];
         [self.vc.view addSubview:self.activityIndicatorView];
