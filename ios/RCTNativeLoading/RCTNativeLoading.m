@@ -36,7 +36,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         
-        self.vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        self.vc = [UIApplication sharedApplication].keyWindow.rootViewController;
         
     }
     return  self;
@@ -60,69 +60,90 @@ RCT_EXPORT_METHOD(hide){
 
 -(void)showLoadingWithoutStr {
     dispatch_async(dispatch_get_main_queue(), ^{
-        // 背景层
-        self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, AutoLayoutFunctionBtnWidth(100), AutoLayoutFunctionBtnHeight(100))];
-        self.bgView.backgroundColor = [UIColor blackColor];
-        self.bgView.center = self.vc.view.center;
-        self.bgView.alpha = 0.7;
-        self.bgView.layer.cornerRadius = 10.0f;
-        [self.vc.view addSubview:self.bgView];
-        
-        // 加载图效果
-        CGFloat activityIndicatorViewX = self.bgView.frame.origin.x + (self.bgView.frame.size.width - 10) / 2;
-        CGFloat activityIndicatorViewY = self.bgView.frame.origin.y + (self.bgView.frame.size.height - 10) / 2;
-        
-        self.activityIndicatorView=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(activityIndicatorViewX, activityIndicatorViewY, 10, 10)];
-        CGAffineTransform transform = CGAffineTransformMakeScale(1.35f, 1.35f);
-        self.activityIndicatorView.transform = transform;
-        [self.activityIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        [self.activityIndicatorView setBackgroundColor:[UIColor clearColor]];
-        [self.vc.view addSubview:self.activityIndicatorView];
-        
-        [self.activityIndicatorView startAnimating];
+        if (self.activityIndicatorView.animating) {
+            
+        }
+        else {
+            // 背景层
+            self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, AutoLayoutFunctionBtnWidth(120), AutoLayoutFunctionBtnHeight(120))];
+            self.bgView.backgroundColor = [UIColor blackColor];
+            self.bgView.center = self.vc.view.center;
+            self.bgView.alpha = 0.7;
+            self.bgView.layer.cornerRadius = 10.0f;
+            [self.vc.view addSubview:self.bgView];
+            
+            // 加载图效果
+            CGFloat activityIndicatorViewX = self.bgView.frame.origin.x + (self.bgView.frame.size.width - 40) / 2;
+            CGFloat activityIndicatorViewY = self.bgView.frame.origin.y + (self.bgView.frame.size.height - 40) / 2;
+            
+            self.activityIndicatorView=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(activityIndicatorViewX, activityIndicatorViewY, 40, 40)];
+            //        CGAffineTransform transform = CGAffineTransformMakeScale(1.5f, 1.5f);
+            //        self.activityIndicatorView.transform = transform;
+            [self.activityIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            [self.activityIndicatorView setBackgroundColor:[UIColor clearColor]];
+            [self.vc.view addSubview:self.activityIndicatorView];
+            
+            [self.activityIndicatorView startAnimating];
+        }
     });
 }
 
 -(void)showLoading:(NSString *)msg{
     dispatch_async(dispatch_get_main_queue(), ^{
-        // 背景层
-        self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, AutoLayoutFunctionBtnWidth(120), AutoLayoutFunctionBtnHeight(120))];
-        self.bgView.backgroundColor = [UIColor blackColor];
-        self.bgView.center = self.vc.view.center;
-        self.bgView.alpha = 0.7;
-        self.bgView.layer.cornerRadius = 10.0f;
-        [self.vc.view addSubview:self.bgView];
-        
-        // 加载图效果
-        CGFloat activityIndicatorViewX = self.bgView.frame.origin.x + (self.bgView.frame.size.width - 10) / 2;
-        CGFloat activityIndicatorViewY = self.bgView.frame.origin.y + AutoLayoutFunctionBtnSizeY(40);
-        
-        self.activityIndicatorView=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(activityIndicatorViewX, activityIndicatorViewY,10,10)];
-        CGAffineTransform transform = CGAffineTransformMakeScale(1.35f, 1.35f);
-        self.activityIndicatorView.transform = transform;
-        [self.activityIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        [self.activityIndicatorView setBackgroundColor:[UIColor clearColor]];
-        [self.vc.view addSubview:self.activityIndicatorView];
-        
-        // 加载文字
-        CGFloat textStrX = self.bgView.frame.origin.x;
-        CGFloat textStrY = self.activityIndicatorView.frame.origin.y + AutoLayoutFunctionBtnSizeY(40);
-        
-        self.textStr = [[UILabel alloc]initWithFrame:CGRectMake(textStrX, textStrY, self.bgView.frame.size.width, 30)];
-        self.textStr.text = msg;
-        self.textStr.textColor = [UIColor whiteColor];
-        self.textStr.textAlignment = NSTextAlignmentCenter;
-        [self.vc.view addSubview:self.textStr];
-        
-        [self.activityIndicatorView startAnimating];
+        if (self.activityIndicatorView.animating) {
+            if ([msg isEqualToString:self.textStr.text]) {
+                
+            }
+            else{
+                self.textStr.text = msg;
+            }
+        }
+        else {
+            // 背景层
+            self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, AutoLayoutFunctionBtnWidth(120), AutoLayoutFunctionBtnHeight(120))];
+            self.bgView.backgroundColor = [UIColor blackColor];
+            self.bgView.center = self.vc.view.center;
+            self.bgView.alpha = 0.7;
+            self.bgView.layer.cornerRadius = 10.0f;
+            [self.vc.view addSubview:self.bgView];
+            
+            // 加载图效果
+            CGFloat activityIndicatorViewX = self.bgView.frame.origin.x + (self.bgView.frame.size.width - 10) / 2;
+            CGFloat activityIndicatorViewY = self.bgView.frame.origin.y + AutoLayoutFunctionBtnSizeY(40);
+            
+            self.activityIndicatorView=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(activityIndicatorViewX, activityIndicatorViewY,10,10)];
+            //        CGAffineTransform transform = CGAffineTransformMakeScale(1.5f, 1.5f);
+            //        self.activityIndicatorView.transform = transform;
+            [self.activityIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            [self.activityIndicatorView setBackgroundColor:[UIColor clearColor]];
+            [self.vc.view addSubview:self.activityIndicatorView];
+            
+            // 加载文字
+            CGFloat textStrX = self.bgView.frame.origin.x;
+            CGFloat textStrY = self.activityIndicatorView.frame.origin.y + AutoLayoutFunctionBtnSizeY(40);
+            
+            self.textStr = [[UILabel alloc]initWithFrame:CGRectMake(textStrX, textStrY, self.bgView.frame.size.width, 30)];
+            self.textStr.text = msg;
+            self.textStr.textColor = [UIColor whiteColor];
+            self.textStr.textAlignment = NSTextAlignmentCenter;
+            [self.vc.view addSubview:self.textStr];
+            
+            [self.activityIndicatorView startAnimating];
+        }
     });
 }
 
 -(void)hideLoading {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.bgView.hidden = YES;
-        self.textStr.hidden = YES;
-        [self.activityIndicatorView stopAnimating];
+        if (self.activityIndicatorView.animating) {
+            [self.bgView removeFromSuperview];
+            [self.textStr removeFromSuperview];
+            [self.activityIndicatorView stopAnimating];
+            [self.activityIndicatorView removeFromSuperview];
+        }
+        else {
+            
+        }
     });
     
 }
