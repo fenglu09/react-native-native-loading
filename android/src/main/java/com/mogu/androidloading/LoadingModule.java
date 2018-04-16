@@ -20,19 +20,22 @@ public class LoadingModule extends ReactContextBaseJavaModule {
     public String getName() {
         return "NativeLoading";
     }
+
     @ReactMethod
     public void hide() {
-        if(dialog1!=null){
-            dialog1.dismiss();
+        if (dialog1 != null) {
+            if (dialog1.isShowing())
+                dialog1.dismiss();
         }
     }
 
     @ReactMethod
     public void show(String msg) {
-        LoadingDialog.Builder builder1=new LoadingDialog.Builder(getCurrentActivity())
+        hide();
+        LoadingDialog.Builder builder1 = new LoadingDialog.Builder(getCurrentActivity())
                 .setMessage(msg)
                 .setCancelable(false);
-        dialog1=builder1.create();
+        dialog1 = builder1.create();
         dialog1.show();
     }
 }
